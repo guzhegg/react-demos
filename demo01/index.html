@@ -10,8 +10,54 @@
 <body>
   <div id="example"></div>
   <script type="text/babel">
+
+    var Guzhe = React.createClass({
+      getInitialState:function(){
+        return {liked:false,tt:""};
+      },
+      clickHandle:function(){
+          this.setState({liked:!this.state.liked});
+          this.setState({tt:this.state.liked?"喜欢":"不喜欢"});
+      },
+      getDefaultProps:function(){
+        return {
+          name:"顾哲默认"
+        };
+      },
+      render:function(){
+        
+        var buttonText = this.state.liked?"不喜欢":"喜欢";
+        
+        
+        return (
+          <div>
+            <p>Hello,{this.props.name}</p>
+            123123
+            <ol>
+              {
+                React.Children.map(this.props.children,function(child){
+                  return <li>{child}</li>;
+                })
+              }
+            </ol>
+            <input type="text" value="{tt}" ref="textInput"/>
+            
+            <input type="button" value="赞" ref="inputButton" onClick={this.clickHandle}/>
+          </div>);    
+      },
+      propTypes: {
+        name: React.PropTypes.string.isRequired,
+      }
+      
+    });
     ReactDOM.render(
-    <h1>Hello, world!</h1>, document.getElementById('example') );
+    <div>
+      <h1>Hello, world!</h1>
+      <Guzhe name="顾哲">
+        <span>参数1</span>
+        <span>参数2</span>
+      </Guzhe>
+    </div>, document.getElementById('example') );
   </script>
 </body>
 
